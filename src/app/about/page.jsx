@@ -16,7 +16,6 @@ import {
 const About = () => {
   return (
     <div className="min-h-screen text-white font-sans">
-      {/* Banner Section */}
       <div className="relative w-full h-[33rem] min-h-screen overflow-hidden">
         <Image
           src={Banner}
@@ -55,13 +54,12 @@ const About = () => {
             repeat: Infinity,
             repeatType: "reverse",
           }}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-blue-300"
+          className="absolute bottom-25 left-1/2 transform -translate-x-1/2 text-blue-300"
         >
           <FaChevronDown className="text-2xl animate-bounce" />
         </motion.div>
       </div>
 
-      {/* About Content */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

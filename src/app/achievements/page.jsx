@@ -28,7 +28,7 @@ const AchievementsPage = () => {
         />
 
         <div className="absolute inset-0 bg-black/60 z-10 flex items-center justify-end px-6 py-12">
-          <div className="max-w-4xl text-center">
+          <div className="max-w-4xl text-start">
             {/* Title */}
             <motion.h2
               initial={{ y: 30, opacity: 0 }}
