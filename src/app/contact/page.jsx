@@ -14,7 +14,7 @@ import { MdEmail } from "react-icons/md";
 
 const TimelinePage = () => {
   return (
-    <div className="px-6 md:px-12 py-4 text-white font-sans bg-gradient-to-br from-[#010c24] via-[#103460] to-[#1b2d3a]">
+    <div className="px-6 md:px-12 min-h-screen py-4 text-white font-sans bg-gradient-to-br from-[#010c24] via-[#103460] to-[#1b2d3a]">
       <motion.h2
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

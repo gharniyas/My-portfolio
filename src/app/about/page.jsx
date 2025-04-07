@@ -17,7 +17,7 @@ const About = () => {
   return (
     <div className="min-h-screen text-white font-sans">
       {/* Banner Section */}
-      <div className="relative w-full h-[33rem] overflow-hidden">
+      <div className="relative w-full h-[33rem] min-h-screen overflow-hidden">
         <Image
           src={Banner}
           alt="Banner"

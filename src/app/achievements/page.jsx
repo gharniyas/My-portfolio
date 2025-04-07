@@ -18,7 +18,7 @@ const achievements = [
 const AchievementsPage = () => {
   return (
     <div className="w-full text-white font-sans ">
-      <div className="relative w-full h-[520px] overflow-hidden">
+      <div className="relative w-full h-[520px] min-h-screen overflow-hidden">
         <Image
           src={AchievementsBanner}
           alt="Achievements Banner"
