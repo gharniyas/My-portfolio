@@ -58,7 +58,7 @@ const Home = () => {
         <motion.div variants={itemVariants} className="w-full md:w-1/2 px-2">
           <motion.div className="mb-6" variants={itemVariants}>
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-              Hi, I'm <span className="text-[#64ffda]">Gharniyas Ramesh</span>
+              Hi, I am <span className="text-[#64ffda]">Gharniyas Ramesh</span>
             </h1>
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-300 mb-4">
               Full-Stack Developer
