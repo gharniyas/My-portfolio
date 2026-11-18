@@ -4,8 +4,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="text-center text-gray-400 py-2 text-sm">
-      <p>&copy; {currentYear} Gharniyas. All rights reserved.</p>
+    <div className="text-center text-sm text-slate-500">
+      <p>
+        &copy; {currentYear} Gharniyas Ramesh. Built with{" "}
+        <span className="text-[#D4FF24]">Next.js</span>.
+      </p>
     </div>
   );
 };

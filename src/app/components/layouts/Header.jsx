@@ -1,111 +1,130 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
+
+const navLinks = [
+  { href: "#home", label: "Home" },
+  { href: "#about", label: "About" },
+  { href: "#skills", label: "Skills" },
+  { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#achievements", label: "Achievements" },
+  { href: "#timeline", label: "Timeline" },
+  { href: "#contact", label: "Contact" },
+];
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [active, setActive] = useState("#home");
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const toggleMenu = () => setMenuOpen((v) => !v);
+  const closeMenu = () => setMenuOpen(false);
+
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.querySelector(link.href))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`);
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <header className=" text-white px-4 py-3 w-full z-50 relative">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-xl font-bold">It's Me, Gharniyas Ramesh</h1>
-        <nav className="hidden md:flex space-x-6">
-          <a href="/" className="hover:text-blue-400">
-            Home
-          </a>
-          <a href="/about" className="hover:text-blue-400">
-            About
-          </a>
-          <a href="/achievements" className="hover:text-blue-400">
-            Achievements
-          </a>
-          <a href="/projects" className="hover:text-blue-400">
-            Projects
-          </a>
-          <a href="/work_exp" className="hover:text-blue-400">
-            Work Experience
-          </a>
-          <a href="/timeline" className="hover:text-blue-400">
-            Time Line
-          </a>
-          <a href="/contact" className="hover:text-blue-400">
-            Contact
-          </a>
-        </nav>
+    <div className="relative mx-auto flex w-full max-w-7xl items-center justify-between py-3">
+      <a
+        href="#home"
+        className="text-lg font-extrabold tracking-tight text-slate-100"
+      >
+        Gharniyas<span className="text-[#D4FF24]">.</span>
+      </a>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu}>
-            {menuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-          </button>
-        </div>
-      </div>
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
+      <nav className="hidden md:flex md:items-center md:gap-1">
+        {navLinks.map((link) => {
+          const isActive = active === link.href;
+          return (
+            <a
+              key={link.href}
+              href={link.href}
+              className={`relative rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-200 ${
+                isActive
+                  ? "text-[#D4FF24]"
+                  : "text-slate-400 hover:text-slate-100"
+              }`}
+            >
+              {link.label}
+              {isActive && (
+                <motion.span
+                  layoutId="nav-pill"
+                  className="absolute inset-0 -z-10 rounded-full bg-[#1558C9]/15"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div className="md:hidden">
+        <button
           onClick={toggleMenu}
-        ></div>
-      )}
+          aria-label="Toggle menu"
+          className="rounded-lg p-2 text-slate-200 hover:bg-white/5"
+        >
+          {menuOpen ? <HiX size={26} /> : <HiMenu size={26} />}
+        </button>
+      </div>
 
-      {menuOpen && (
-        <nav className="md:hidden absolute top-16 left-0 w-full bg-[#0a192f] border-t border-gray-600 z-40">
-          <ul className="flex flex-col space-y-4 p-4 text-center">
-            <li>
-              <a href="/" onClick={toggleMenu} className="hover:text-blue-400">
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                href="/about"
-                onClick={toggleMenu}
-                className="hover:text-blue-400"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="/achievements"
-                onClick={toggleMenu}
-                className="hover:text-blue-400"
-              >
-                Achievements
-              </a>
-            </li>
-            <li>
-              <a
-                href="/projects"
-                onClick={toggleMenu}
-                className="hover:text-blue-400"
-              >
-                Projects
-              </a>
-            </li>
-            <li>
-              <a
-                href="/work_exp"
-                onClick={toggleMenu}
-                className="hover:text-blue-400"
-              >
-                Work Experience
-              </a>
-            </li>
-            <li>
-              <a
-                href="/contact"
-                onClick={toggleMenu}
-                className="hover:text-blue-400"
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
-        </nav>
-      )}
-    </header>
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm md:hidden"
+              onClick={closeMenu}
+            />
+            <motion.nav
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute left-0 right-0 top-full z-40 mt-2 rounded-xl border border-[#1b2333] bg-[#0a0e16] shadow-xl md:hidden"
+            >
+              <ul className="flex flex-col divide-y divide-[#1b2333] p-2">
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={closeMenu}
+                      className={`block rounded-lg px-4 py-3 text-center font-semibold transition-colors duration-200 ${
+                        active === link.href
+                          ? "text-[#D4FF24]"
+                          : "text-slate-400 hover:text-slate-100"
+                      }`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

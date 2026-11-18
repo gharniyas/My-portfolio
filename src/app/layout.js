@@ -1,18 +1,22 @@
 import Footer from "./components/layouts/Footer";
 import Header from "./components/layouts/Header";
+import ChatBot from "./components/ui/ChatBot";
+import AmbientBackground from "./components/ui/AmbientBackground";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="w-full">
-      <body className="flex flex-col min-h-screen w-full bg-gradient-to-br from-[#010c24] via-[#103460] to-[#1b2d3a] transition-all duration-500 ease-in-out">
-        <header className="sticky top-0 z-50 px-4 sm:px-6 md:px-8 bg-transparent backdrop-blur-md">
+      <body className="flex flex-col min-h-screen w-full text-slate-100 transition-all duration-500 ease-in-out">
+        <AmbientBackground />
+        <header className="sticky top-0 z-50 w-full border-b border-[#1b2333] bg-[#030407]/85 px-4 backdrop-blur-md sm:px-6 md:px-8">
           <Header />
         </header>
-        <main className="flex-grow w-full">{children}</main>
-        <footer className="sticky bottom-0 z-50 px-4 sm:px-6 md:px-8 py-2 text-center text-gray-300 bg-transparent backdrop-blur-md">
+        <main className="w-full flex-grow">{children}</main>
+        <footer className="w-full border-t border-[#1b2333] bg-[#030407]/85 px-4 py-3 text-center text-slate-500 backdrop-blur-md sm:px-6 md:px-8">
           <Footer />
         </footer>
+        <ChatBot />
       </body>
     </html>
   );
